@@ -16,10 +16,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.14.4'
+          cache: 'pip' # <-- New: Tells GitHub to cache pip downloads
 
       - name: Install dependencies
-        run: pip install pytest
+        run: pip install -r requirements.txt # <-- New: Uses the shopping list
 
       - name: Run tests
         run: python -m pytest
