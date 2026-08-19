@@ -1,12 +1,22 @@
-name: My First Workflow
+name: Python CI
 
 on: [push]
 
 jobs:
-  say-hello:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Print a greeting
-        run: echo "Hello, CI/CD World!"
-      - name: SHow current date and time
-        run: date
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.4'
+
+      - name: Install dependencies
+        run: pip install pytest
+
+      - name: Run tests
+        run: python -m pytest
