@@ -1,5 +1,7 @@
 from math_utils import add, subtract, multiply, divide
 
+url = "https://github.com"  # Dummy line using requests
+
 def test_add():
     assert add(2,3) == 5
 
