@@ -19,11 +19,14 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.14.4'
-          cache: 'pip' # <-- New: Tells GitHub to cache pip downloads
+          python-version: '3.10'
+          cache: 'pip'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt # <-- New: Uses the shopping list
+        run: pip install -r requirements.txt
+
+      - name: Run Linter
+        run: ruff check . # <-- New: Lints all Python files in the repo
 
       - name: Run tests
         run: python -m pytest
