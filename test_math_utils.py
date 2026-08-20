@@ -1,4 +1,4 @@
-from math_utils import add, divide, multiply, subtract
+from math_utils import add, check_status, divide, multiply, subtract
 
 
 def test_add():
@@ -13,3 +13,5 @@ def test_multiply():
 def test_devide():
     assert divide(4,2) == 2
 
+def test_check_status():
+    assert check_status(200) == "OK"
