@@ -8,18 +8,26 @@ on:
     branches:
       - main
 
+env: # <-- New: Global environment variables
+  PYTHONUNBUFFERED: "1"
+  PROJECT_NAME: "Math Utils CI Learning"
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # <-- New: Let all jobs finish
+      matrix:
+        python-version: ["3.10", "3.12"] # <-- Removed 3.9
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: ${{ matrix.python-version }}
           cache: 'pip'
 
       - name: Install dependencies
@@ -28,17 +36,15 @@ jobs:
       - name: Run Linter
         run: ruff check .
 
+      - name: Print Project Name
+        run: echo "Running tests for $PROJECT_NAME" # <-- Using the global variable
+
       - name: Run tests
-        run: python -m pytest --junitxml=report.xml # <-- Changed: generates report.xml
+        run: python -m pytest --junitxml=report.xml
 
       - name: Upload test report
-        uses: actions/upload-artifact@v4 # <-- New: The save action
-        if: always() # <-- New: Crucial! Save the report even if tests fail
+        uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: test-results-report # The name of the artifact
-          path: report.xml # The file to save
-
-      - name: Run secret script
-        run: python print_secret.py
-        env:
-          MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }} # <-- New
+          name: test-results-report-${{ matrix.python-version }} # <-- Changed name
+          path: report.xml
