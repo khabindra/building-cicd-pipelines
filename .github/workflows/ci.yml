@@ -47,5 +47,4 @@ jobs:
         if: always()
         with:
           name: test-results-report-${{ matrix.python-version }} # <-- Changed name
-          path: report.xmlname: Python CI
-
+          path: report.xml
