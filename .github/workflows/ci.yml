@@ -29,7 +29,14 @@ jobs:
         run: ruff check .
 
       - name: Run tests
-        run: python -m pytest
+        run: python -m pytest --junitxml=report.xml # <-- Changed: generates report.xml
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v4 # <-- New: The save action
+        if: always() # <-- New: Crucial! Save the report even if tests fail
+        with:
+          name: test-results-report # The name of the artifact
+          path: report.xml # The file to save
 
       - name: Run secret script
         run: python print_secret.py
