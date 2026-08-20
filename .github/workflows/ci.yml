@@ -19,14 +19,14 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.14.4'
+          python-version: '3.10'
           cache: 'pip'
 
       - name: Install dependencies
         run: pip install -r requirements.txt
 
       - name: Run Linter
-        run: ruff check . # <-- New: Lints all Python files in the repo
+        run: ruff check .
 
       - name: Run tests
         run: python -m pytest
@@ -34,4 +34,4 @@ jobs:
       - name: Run secret script
         run: python print_secret.py
         env:
-          MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }} #<-- New
+          MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }} # <-- New
