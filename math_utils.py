@@ -14,9 +14,3 @@ def divide(a,b):
     return a/b
 
 
-def check_status(status):
-    match status:
-        case 200:
-            return "OK"
-        case _:
-            return "Unknown"
