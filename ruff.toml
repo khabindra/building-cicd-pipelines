@@ -1,0 +1,6 @@
+[lint]
+ignore = ["E501"] # Ignore line-too-long errors
+
+[lint.extend-per-file-ignores]
+"ci_project/settings.py" = ["E"]
+"calculator/migrations/*" = ["E"]
