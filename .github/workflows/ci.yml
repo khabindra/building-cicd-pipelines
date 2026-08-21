@@ -39,9 +39,10 @@ jobs:
         run: python manage.py test
 
   deploy:
-    needs: test # <-- New: Wait for test job to finish
+    needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' # <-- New: Only run on main branch
+    environment: production # <-- New: Tells GitHub this is a production deployment
+    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout code
