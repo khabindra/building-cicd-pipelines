@@ -52,5 +52,3 @@ jobs:
         run: |
           echo "Deploying to production server..."
           echo "Deployment successful!"
-          # Simulate a crash here 
-          exit 1
